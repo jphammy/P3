@@ -72,11 +72,11 @@ int main(int argc, char ** argv) {
   int x = 0;
   while (x < lineNum) {
     if (semop(semID, birthcontrol, 1) == -1) {
-      perror("Semaphore birth control.");
+      perror("Semaphore birth control.\n");
       return (1);
     }
     if ((semaphoreValue = semctl(semID, 2, GETVAL)) == -1) {
-      perror("Semaphore birth control.");
+      perror("Semaphore birth control.\n");
       return (1);
     }
     if (semaphoreValue < 2) wait(NULL);
