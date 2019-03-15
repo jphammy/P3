@@ -1,3 +1,8 @@
+// Jonathan Pham
+// CS 4760 Operating Systems
+// Assignment 3: Semaphores & OS Simulator
+// Due: 03/18/2019
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -13,10 +18,10 @@ struct sembuf mutex[2];
 
 int main(int argc, char ** argv) {
 
-  if (argc < 3) {
-    fprintf(stderr, "Please try again, wrong number of arguments.\n");
-    return (1);
-  }
+//  if (argc < 3) {
+//    fprintf(stderr, "Please try again, wrong number of arguments.\n");
+//    return (1);
+//  }
 
   int index = atoi(argv[2]);
   int id = atoi(argv[1]);
@@ -42,7 +47,7 @@ int main(int argc, char ** argv) {
 
   if ((semaphore_ID = semget(skey, 3, PERM)) == -1) {
     if (errno == EIDRM) {
-      perror("Failed to craeat semaphore.\n");
+      perror("Failed to create semaphore.\n");
       return (1);
     }
     perror("Failed to set up semaphore.\n");
@@ -75,7 +80,7 @@ int main(int argc, char ** argv) {
 
   if (semop(semaphore_ID, mutex, 1) == -1) {
     if (errno == EIDRM) {
-      fprintf(stderr, "(Index:=%d) interrupted.\n", index);
+      fprintf(stderr, "(Index Number:%d) interrupted.\n", index);
       return (1);
     }
     perror("Failed to lock semid.");
@@ -92,9 +97,9 @@ int main(int argc, char ** argv) {
   long pid = (long) getpid();
   const time_t tma = time(NULL);
   char * tme = ctime( & tma);
-  fprintf(stderr, "(Index:=%d) in critical sec: %s", index, tme);
+  fprintf(stderr, "(Index Number:%d) in critical section: %s", index, tme);
   sleep(randomNum1);
-  int p = palindromeChecker(mymsg.mText);
+  int p = palindromeChecker(mymsg.messageString);
   char * filename;
   if (p < 0) {
     filename = NOPALINDROME;
@@ -102,7 +107,7 @@ int main(int argc, char ** argv) {
     filename = PALINDROME;
   }
 
-  if (writeToFile(filename, pid, index, mymsg.mText) == -1) {
+  if (writeToFile(filename, pid, index, mymsg.messageString) == -1) {
     perror("Failed to open file.\n");
 
     if (semop(semaphore_ID, mutex + 1, 1) == -1)
@@ -133,9 +138,9 @@ int main(int argc, char ** argv) {
     perror("Failed to signal parent.\n");
     return (1);
   }
-  if (errno != 0) {
-    perror("palin uncaught error:");
-    return 1;
-  }
+  //if (errno != 0) {
+  //  perror("palin uncaught error:");
+  //  return 1;
+  //}
   return (0);
 }
