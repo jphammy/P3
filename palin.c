@@ -85,7 +85,7 @@ int main(int argc, char ** argv) {
   sigset_t newmask, oldmask;
   if ((sigfillset( & newmask) == -1) ||
     (sigprocmask(SIG_BLOCK, & newmask, & oldmask) == -1)) {
-    perror("Failed setting signal mask.");
+    perror("Failed setting signal mask.\n");
     return (1);
   }
 
