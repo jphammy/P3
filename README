@@ -1,0 +1,50 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Jonathan Pham
+CS 4760 Operating Systems
+Assignment 3: Semaphores & OS Simulator
+Due: 03/18/2019
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Type make to create 2 executables; main & palin
+Run ./main via command line to run program where main will exec palin executable.
+
+in.txt contains a file with 37 lines on palindromes & non-palindromes
+that I found via http://www.palindromelist.net/
+
+The program will complete after 2 options 
+1) After 100 seconds (per the assignment guidelines) 
+2) When user user enters CTRL+C via command line
+
+After the program runs, see palin.out and nopalin.out for the specified format: 
+
+PID  Index String
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cliff Notes:
+
+Program reads from in.txt and forks off processess from in.txt file
+Outputs palindromes to palin.out
+Outputs non-palindromes to nopalin.out
+Consumer process in palin.c file
+Makefile contains suffix rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+make clean will remove all executables, object files, and corresponding 
+palin.out & nopalin.out files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Please note that I used Semaphore and Message Queue for interprocess controlling 
+for communicatation between parent and child. 
+Message queue used to talk to children from forked processes.
+
+Message Queue contains the following variables in struct
+ long messageIndex; // index for child
+ char messageString; // message string for palindrome or non-palindrome
+
+Semaphore used to protect critical resources from main & palin executables
+ Limit max number of processes to 20
+ Lock I/O file
+ Message queue & semaphores are closed via message queue
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
